@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Arry Alerts — Discord Premium Market Alerts</title>
+  <meta name="description" content="Arry Alerts: process-first Discord market alerts and education. Free teaser channels. Premium alerts when you are ready. Payments by Stripe. We never share account balances or NAV." />
+  <meta property="og:title" content="Arry Alerts" />
+  <meta property="og:description" content="Discord market alerts &amp; education. No account balances. Ever." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect fill='%230f766e' width='32' height='32' rx='8'/%3E%3Ctext x='16' y='22' text-anchor='middle' fill='white' font-size='16' font-family='sans-serif'%3EA%3C/text%3E%3C/svg%3E" />
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #070b10;
+      --bg2: #0d141c;
+      --card: #121a24;
+      --line: #243041;
+      --text: #e8eef5;
+      --muted: #9aa7b5;
+      --accent: #2dd4bf;
+      --accent2: #38bdf8;
+      --warn: #fbbf24;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: radial-gradient(1200px 600px at 10% -10%, #134e4a55, transparent),
+                  radial-gradient(900px 500px at 100% 0%, #0c4a6e44, transparent),
+                  var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      min-height: 100vh;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wrap { max-width: 960px; margin: 0 auto; padding: 0 1.25rem; }
+    header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 0; border-bottom: 1px solid var(--line);
+    }
+    .brand { display: flex; align-items: center; gap: .65rem; font-weight: 700; letter-spacing: .02em; color: var(--text); text-decoration: none; }
+    .logo {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: linear-gradient(135deg, #0f766e, #0369a1);
+      display: grid; place-items: center; font-weight: 800; font-size: .95rem;
+    }
+    nav { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; font-size: .92rem; }
+    nav a { color: var(--muted); }
+    nav a:hover { color: var(--text); }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: .4rem;
+      border: 0; border-radius: 10px; padding: .7rem 1.15rem; font-weight: 650;
+      cursor: pointer; font-size: .95rem; text-decoration: none;
+    }
+    .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #042f2e; }
+    .btn-primary:hover { filter: brightness(1.05); text-decoration: none; }
+    .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--line); }
+    .btn-ghost:hover { border-color: var(--accent); text-decoration: none; }
+    .hero { padding: 3.2rem 0 2rem; display: grid; gap: 1.75rem; }
+    @media (min-width: 800px) {
+      .hero { grid-template-columns: 1.3fr .9fr; align-items: center; }
+    }
+    .eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: .08em; font-size: .78rem; font-weight: 700; margin: 0 0 .6rem; }
+    h1 { font-size: clamp(1.9rem, 4vw, 2.75rem); line-height: 1.15; margin: 0 0 .85rem; }
+    .lead { color: var(--muted); font-size: 1.08rem; margin: 0 0 1.25rem; max-width: 36rem; }
+    .cta-row { display: flex; flex-wrap: wrap; gap: .75rem; margin-bottom: .75rem; }
+    .fine { font-size: .85rem; color: var(--muted); }
+    .panel {
+      background: linear-gradient(180deg, #15202b, var(--card));
+      border: 1px solid var(--line); border-radius: 16px; padding: 1.35rem 1.4rem;
+      box-shadow: 0 20px 50px #0006;
+    }
+    .panel h2 { margin: 0 0 .5rem; font-size: 1.15rem; }
+    .price { font-size: 1.85rem; font-weight: 750; margin: .35rem 0; }
+    .price span { font-size: .95rem; color: var(--muted); font-weight: 500; }
+    .panel ul { margin: .6rem 0 1rem; padding-left: 1.1rem; color: var(--muted); }
+    .panel li { margin: .3rem 0; }
+    .badges {
+      display: grid; grid-template-columns: 1fr; gap: .75rem;
+      margin: 1.5rem 0 2.5rem;
+    }
+    @media (min-width: 700px) { .badges { grid-template-columns: repeat(3, 1fr); } }
+    .badge {
+      background: var(--bg2); border: 1px solid var(--line); border-radius: 12px;
+      padding: 1rem 1.1rem;
+    }
+    .badge strong { display: block; margin-bottom: .25rem; color: var(--text); }
+    .badge p { margin: 0; color: var(--muted); font-size: .9rem; }
+    .section { padding: 0 0 2.75rem; }
+    .section h2 { margin: 0 0 .75rem; font-size: 1.35rem; }
+    .grid-2 { display: grid; gap: 1rem; }
+    @media (min-width: 700px) { .grid-2 { grid-template-columns: 1fr 1fr; } }
+    .card {
+      background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+      padding: 1.15rem 1.25rem;
+    }
+    .card h3 { margin: 0 0 .4rem; font-size: 1.05rem; }
+    .card p { margin: 0; color: var(--muted); font-size: .95rem; }
+    footer {
+      border-top: 1px solid var(--line); padding: 1.5rem 0 2.5rem;
+      color: var(--muted); font-size: .88rem;
+    }
+    footer .row { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; align-items: center; }
+    footer nav { gap: .9rem; }
+    .pill {
+      display: inline-block; font-size: .75rem; font-weight: 700; letter-spacing: .04em;
+      text-transform: uppercase; color: var(--warn); background: #42200655;
+      border: 1px solid #854d0e88; border-radius: 999px; padding: .2rem .55rem; margin-bottom: .6rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="/">
+        <span class="logo" aria-hidden="true">A</span>
+        <span>Arry Alerts</span>
+      </a>
+      <nav>
+        <a href="/start-here">Start here</a>
+        <a href="/legal/terms">Terms</a>
+        <a href="/legal/privacy">Privacy</a>
+        <a class="btn btn-primary" href="https://discord.gg/svQZGsxJtD" target="_blank" rel="noopener">Join Discord free</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Discord-first market alerts</p>
+        <h1>Process over flex. Alerts you can learn from.</h1>
+        <p class="lead">
+          Arry Alerts is a Discord community for market storytelling, watchlists, and Premium alert channels.
+          Educational content only — <strong style="color:var(--text)">never account balances or NAV</strong>.
+        </p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="https://discord.gg/svQZGsxJtD" target="_blank" rel="noopener">Join free Discord</a>
+          <a class="btn btn-ghost" href="#premium">See Premium</a>
+        </div>
+        <p class="fine">Free teasers: #watchlist · #active-trades · #rules · #announcements</p>
+      </div>
+
+      <aside class="panel" id="premium">
+        <div class="pill">Premium</div>
+        <h2>Discord Premium</h2>
+        <p class="price">$29<span>/mo launch</span></p>
+        <p class="fine" style="margin-top:0">Then $49/mo after the first 50 paying members.</p>
+        <ul>
+          <li>#premium-alerts</li>
+          <li>#premium-charts</li>
+          <li>#premium-recap</li>
+          <li>Role granted only after verified Stripe payment</li>
+        </ul>
+        <button class="btn btn-primary" id="buy-alerts" type="button" style="width:100%">Start Premium checkout</button>
+        <p id="checkout-msg" class="fine" style="margin:.65rem 0 0"></p>
+      </aside>
+    </section>
+
+    <section class="badges" aria-label="Trust and security">
+      <div class="badge">
+        <strong>Payments by Stripe</strong>
+        <p>Checkout &amp; subscriptions via Stripe. We never store full card numbers on our servers.</p>
+      </div>
+      <div class="badge">
+        <strong>No balances. Ever.</strong>
+        <p>Customer content does not include trading account balances, NAV, or live equity flex.</p>
+      </div>
+      <div class="badge">
+        <strong>Server-side access</strong>
+        <p>Premium roles unlock only after webhook-verified payment — not from a browser redirect alone.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>What you get</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Free community</h3>
+          <p>Jump into Discord for teaser watchlist and active-trades channels, rules, and announcements. Invite: discord.gg/svQZGsxJtD</p>
+        </div>
+        <div class="card">
+          <h3>Premium alerts</h3>
+          <p>Deeper alert, chart, and recap channels for members who want the full feed after secure checkout.</p>
+        </div>
+        <div class="card">
+          <h3>Digital guides</h3>
+          <p>One-time educational PDFs and playbooks — paper-honest positioning, no live equity figures.</p>
+        </div>
+        <div class="card">
+          <h3>Weekly newsletter</h3>
+          <p>Market + trade storytelling by email, with a soft path into Discord Premium when you are ready.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Not financial advice</h2>
+      <div class="card">
+        <p>
+          Arry Alerts is for education and community discussion. We do not provide personalized investment advice,
+          manage client funds, or guarantee results. You are responsible for your own decisions.
+          See our <a href="/legal/terms">Terms of Service</a> and <a href="/legal/privacy">Privacy Policy</a>.
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      <div class="row">
+        <div>
+          <strong style="color:var(--text)">Arry Alerts</strong><br />
+          Business website for Stripe · Discord-first commerce
+        </div>
+        <nav>
+          <a href="/start-here">Start here</a>
+          <a href="/legal/terms">Terms</a>
+          <a href="/legal/privacy">Privacy</a>
+          <a href="/api/catalog">Catalog API</a>
+          <a href="https://discord.gg/svQZGsxJtD" target="_blank" rel="noopener">Discord</a>
+        </nav>
+      </div>
+      <p style="margin:1rem 0 0">© 2026 Arry Alerts. All rights reserved.</p>
+    </footer>
+  </div>
+  <script>
+    document.getElementById('buy-alerts').addEventListener('click', async () => {
+      const msg = document.getElementById('checkout-msg');
+      msg.textContent = 'Creating secure Stripe session…';
+      try {
+        const res = await fetch('/api/checkout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ productId: 'alerts-premium' }),
+        });
+        const data = await res.json();
+        if (data.url) {
+          window.location.href = data.url;
+        } else {
+          msg.textContent = data.message || data.error || 'Checkout not configured yet — join Discord free while Stripe is wired.';
+        }
+      } catch (e) {
+        msg.textContent = String(e);
+      }
+    });
+  </script>
+</body>
+</html>
