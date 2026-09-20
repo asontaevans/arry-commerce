@@ -142,17 +142,18 @@
 
       <aside class="panel" id="premium">
         <div class="pill">Premium</div>
-        <h2>Discord Premium</h2>
-        <p class="price">$29<span>/mo launch</span></p>
-        <p class="fine" style="margin-top:0">Then $49/mo after the first 50 paying members.</p>
+        <h2>Premium alert channels</h2>
+        <p class="price">$5<span>/mo after 7-day free trial</span></p>
+        <p class="fine" style="margin-top:0">Launch pricing for the first 50 members; standard pricing is $49/month afterward.</p>
         <ul>
-          <li>#premium-alerts</li>
-          <li>#premium-charts</li>
-          <li>#premium-recap</li>
-          <li>Role granted only after verified Stripe payment</li>
+          <li>Structured alerts in #premium-alerts</li>
+          <li>Supporting charts in #premium-charts</li>
+          <li>Daily context in #premium-recap</li>
+          <li>Premium role added after Stripe verifies payment</li>
         </ul>
-        <button class="btn btn-primary" id="buy-alerts" type="button" style="width:100%">Start Premium checkout</button>
-        <p id="checkout-msg" class="fine" style="margin:.65rem 0 0"></p>
+        <button class="btn btn-primary" id="buy-alerts" type="button" style="width:100%">Continue to secure checkout</button>
+        <p class="fine" style="margin:.65rem 0 0">18+ · Educational content only · Not financial advice.</p>
+        <p id="checkout-msg" class="fine" style="margin:.35rem 0 0"></p>
       </aside>
     </section>
 
@@ -224,22 +225,25 @@
   <script>
     document.getElementById('buy-alerts').addEventListener('click', async () => {
       const msg = document.getElementById('checkout-msg');
-      msg.textContent = 'Creating secure Stripe session…';
+      const paymentLink = 'https://buy.stripe.com/7sYaEX0KJfFWeoM9VT7EQ01';
+      msg.textContent = 'Opening secure Stripe checkout…';
       try {
         const res = await fetch('/api/checkout', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ productId: 'alerts-premium' }),
         });
-        const data = await res.json();
-        if (data.url) {
-          window.location.href = data.url;
-        } else {
-          msg.textContent = data.message || data.error || 'Checkout not configured yet — join Discord free while Stripe is wired.';
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.url) {
+            window.location.href = data.url;
+            return;
+          }
         }
-      } catch (e) {
-        msg.textContent = String(e);
+      } catch (_) {
+        /* static GitHub Pages or API offline — use Payment Link */
       }
+      window.location.href = paymentLink;
     });
   </script>
 </body>

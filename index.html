@@ -143,7 +143,7 @@
       <aside class="panel" id="premium">
         <div class="pill">Premium</div>
         <h2>Premium alert channels</h2>
-        <p class="price">$29<span>/month at launch</span></p>
+        <p class="price">$5<span>/mo after 7-day free trial</span></p>
         <p class="fine" style="margin-top:0">Launch pricing for the first 50 members; standard pricing is $49/month afterward.</p>
         <ul>
           <li>Structured alerts in #premium-alerts</li>
@@ -225,22 +225,25 @@
   <script>
     document.getElementById('buy-alerts').addEventListener('click', async () => {
       const msg = document.getElementById('checkout-msg');
-      msg.textContent = 'Creating secure Stripe session…';
+      const paymentLink = 'https://buy.stripe.com/7sYaEX0KJfFWeoM9VT7EQ01';
+      msg.textContent = 'Opening secure Stripe checkout…';
       try {
         const res = await fetch('/api/checkout', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ productId: 'alerts-premium' }),
         });
-        const data = await res.json();
-        if (data.url) {
-          window.location.href = data.url;
-        } else {
-          msg.textContent = data.message || data.error || 'Checkout not configured yet — join Discord free while Stripe is wired.';
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.url) {
+            window.location.href = data.url;
+            return;
+          }
         }
-      } catch (e) {
-        msg.textContent = String(e);
+      } catch (_) {
+        /* static GitHub Pages or API offline — use Payment Link */
       }
+      window.location.href = paymentLink;
     });
   </script>
 </body>
